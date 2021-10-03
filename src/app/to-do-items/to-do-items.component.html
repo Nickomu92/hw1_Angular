@@ -1,0 +1,94 @@
+<style>
+    table {
+        border: 2px solid grey;
+        width: 600px;
+        border-collapse: collapsed;
+        text-align: center;
+        margin: 10px;
+    }
+
+    td {
+        border: 2px solid grey;
+        font-weight: bold;
+    }
+
+    td:hover {
+        background-color: dodgerblue;
+        color: white;
+        font-weight: bold;
+    }
+
+    button {
+        padding: 5px 10px;
+        background-color: dodgerblue;
+        opacity: 0.6;
+        color: white;
+        outline: none;
+        font-weight: bold;
+        border: 2px solid grey;
+        margin: 10px;
+    }
+
+    button:hover {
+        opacity: 1;
+    }
+
+    .form-inline > div {
+        display: inline-block;
+    }
+
+    input[type="text"] {
+        margin: 10px;
+        height: 1.4rem;
+    }
+</style>
+
+
+<div class="page-header">
+        <h2>{{title}}</h2>
+    </div>
+    <div class="panel">
+        <!-- Форма для добавления заданий список -->
+        <div class="form-inline">
+            <div class="form-group">
+                <div class="col-md-8">
+                    <!-- Директива NgModel с помощью переданной модели создает объект FormControl и 
+                        привязывает эту модель к созданному элементу формы. Объект FormControl отслеживает 
+                        значение модели, а также отвечает за валидацию этого значения и взаимодействие с пользователем.
+                        Данная директива принимает переданную ей модель в качестве входного свойства, используем двунаправленную привязку. -->
+                    <input type="text" class="form-control" [(ngModel)]="name" placeholder = "Название" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6">
+                    <!-- Директива NgModel, используем двунаправленную привязку -->
+                    <input type="text" class="form-control" [(ngModel)]="description" placeholder="Описание" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-8">
+                    <button class="btn btn-default" (click)="addItem(name, description)">Добавить задание</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Таблица для вывода списка заданий -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Предмет</th>
+                    <th>Описание</th>
+                    <th>Выполнено</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Директива *ngFor для вывода данных из массива items в таблицу -->
+                <tr *ngFor="let item of items">
+                    <td>{{item.name}}</td>
+                    <td>{{item.description}}</td>
+                     <!-- Директива NgModel, используем двунаправленную привязку -->
+                    <td><input type="checkbox" [(ngModel)]="item.done" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
